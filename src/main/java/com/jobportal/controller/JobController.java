@@ -1,10 +1,10 @@
 package com.jobportal.controller;
 
-        import com.jobportal.model.dto.JobDto;
-        import com.jobportal.service.JobService;
-        import org.springframework.web.bind.annotation.*;
+import com.jobportal.model.dto.JobDto;
+import com.jobportal.service.JobService;
+import org.springframework.web.bind.annotation.*;
 
-        import java.util.List;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/jobs")

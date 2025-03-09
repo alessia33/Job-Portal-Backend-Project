@@ -1,10 +1,17 @@
 package com.jobportal.model.dto;
 
+import jakarta.validation.constraints.*;
 
 public class ApplicationDto {
     private Long id;
+
+    @NotNull(message = "Job ID is required")
     private Long jobId;
+
+    @NotNull(message = "Job Seeker ID is required")
     private Long jobSeekerId;
+
+    @NotBlank(message = "Status cannot be empty")
     private String status;
 
     public ApplicationDto() {}

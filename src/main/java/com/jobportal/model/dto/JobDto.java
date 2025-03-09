@@ -1,9 +1,21 @@
 package com.jobportal.model.dto;
+
+import jakarta.validation.constraints.*;
+
 public class JobDto {
     private Long id;
+
+    @NotBlank(message = "Title is required")
+    @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
     private String title;
+
+    @NotBlank(message = "Description cannot be empty")
     private String description;
+
+    @NotBlank(message = "Location is required")
     private String location;
+
+    @NotNull(message = "Employer ID is required")
     private Long employerId;
 
     public JobDto() {}

@@ -4,12 +4,14 @@ import com.jobportal.model.dto.JobDto;
 import com.jobportal.model.entity.Job;
 import com.jobportal.model.entity.User;
 import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-08T22:07:04+0100",
+    date = "2025-03-09T20:36:00+0100",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
 )
+@Component
 public class JobMapperImpl implements JobMapper {
 
     @Override
@@ -37,7 +39,6 @@ public class JobMapperImpl implements JobMapper {
 
         Job job = new Job();
 
-        job.setEmployer( jobDtoToUser( jobDto ) );
         job.setId( jobDto.getId() );
         job.setTitle( jobDto.getTitle() );
         job.setDescription( jobDto.getDescription() );
@@ -59,17 +60,5 @@ public class JobMapperImpl implements JobMapper {
             return null;
         }
         return id;
-    }
-
-    protected User jobDtoToUser(JobDto jobDto) {
-        if ( jobDto == null ) {
-            return null;
-        }
-
-        User user = new User();
-
-        user.setId( jobDto.getEmployerId() );
-
-        return user;
     }
 }

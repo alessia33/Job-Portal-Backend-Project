@@ -15,7 +15,7 @@ public class Job {
     private String location;
 
     @ManyToOne
-    @JoinColumn(name = "employer_id")
+    @JoinColumn(name = "employer_id", referencedColumnName = "id")
     private User employer;
 
     public Job() {}

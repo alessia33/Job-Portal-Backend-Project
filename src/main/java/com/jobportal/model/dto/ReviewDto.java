@@ -1,10 +1,20 @@
 package com.jobportal.model.dto;
 
+import jakarta.validation.constraints.*;
+
 public class ReviewDto {
     private Long id;
+
+    @NotNull(message = "Job ID is required")
     private Long jobId;
+
+    @NotBlank(message = "Review text cannot be empty")
+    @Size(min = 10, max = 500, message = "Review text must be between 10 and 500 characters")
     private String reviewText;
-    private int rating; // e.g., from 1 to 5 stars
+
+    @Min(value = 1, message = "Rating must be at least 1")
+    @Max(value = 5, message = "Rating cannot be more than 5")
+    private int rating;
 
     public ReviewDto() {}
 
