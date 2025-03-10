@@ -1,7 +1,7 @@
 # Job Portal Backend System
 
 ## Project Overview
-This project implements a robust backend for a Job Portal application using **Spring Boot**, **Spring Data JPA**, and **MySQL**. It provides RESTful APIs for three primary user roles—**Admin**, **Employer**, and **Job Seeker**—allowing them to perform tasks such as job postings, job applications, user management, and more.
+This project implements a backend for a Job Portal application using **Spring Boot**, **Spring Data JPA**, and **MySQL**. It provides RESTful APIs for three primary user roles—**Admin**, **Employer**, and **Job Seeker**—allowing them to perform tasks such as job postings, job applications, user management, and more.
 
 ## Features
 ### User Roles and Functionalities
