@@ -63,7 +63,7 @@ spring.datasource.password=yourpassword
 
 ### 3. Run the Application:
 ```bash
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
 
 ### 4. Test the APIs:
