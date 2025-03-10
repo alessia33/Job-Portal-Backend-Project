@@ -15,7 +15,7 @@ public class Review {
     private Job job;
 
     private String reviewText;
-    private int rating; // e.g., from 1 to 5 stars
+    private int rating;
 
     public Review() {}
 

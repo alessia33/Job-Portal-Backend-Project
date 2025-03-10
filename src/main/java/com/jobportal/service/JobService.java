@@ -1,12 +1,14 @@
 package com.jobportal.service;
 
-
 import com.jobportal.mapper.JobMapper;
 import com.jobportal.model.dto.JobDto;
 import com.jobportal.model.entity.Job;
 import com.jobportal.model.entity.User;
 import com.jobportal.repository.JobRepository;
 import com.jobportal.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +24,23 @@ public class JobService {
         this.userRepository = userRepository;
     }
 
-    public List<JobDto> getAllJobs() {
-        return jobRepository.findAll()
+
+    public List<JobDto> getAllJobs(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Job> jobsPage = jobRepository.findAll(pageable);
+
+        return jobsPage.getContent()
+                .stream()
+                .map(JobMapper.INSTANCE::jobToJobDto)
+                .collect(Collectors.toList());
+    }
+
+
+    public List<JobDto> getFilteredJobs(String title, String location, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Job> jobsPage = jobRepository.findByTitleContainingAndLocationContaining(title, location, pageable);
+
+        return jobsPage.getContent()
                 .stream()
                 .map(JobMapper.INSTANCE::jobToJobDto)
                 .collect(Collectors.toList());

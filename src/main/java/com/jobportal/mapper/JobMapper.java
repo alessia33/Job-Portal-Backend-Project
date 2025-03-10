@@ -17,6 +17,6 @@ public interface JobMapper {
     JobDto jobToJobDto(Job job);
 
 
-    @Mapping(source = "employerId", target = "employer", ignore = true) // This prevents direct mapping
+    @Mapping(source = "employerId", target = "employer", ignore = true)
     Job jobDtoToJob(JobDto jobDto);
 }

@@ -2,6 +2,7 @@ package com.jobportal.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,24 +25,31 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // ✅ Disable CSRF for APIs
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // ✅ No Sessions
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/resumes/**").authenticated() // Allow resume uploads
-                        .requestMatchers("/api/auth/register").permitAll() // ✅ Allow Registration Without Authentication
-                        .requestMatchers("/api/users/**").hasRole("ADMIN") // ✅ Admins Only
-                        .requestMatchers("/api/jobs/**").hasAnyRole("EMPLOYER", "ADMIN") // ✅ Employers & Admins
-                        .requestMatchers("/api/applications/**").hasAnyRole("JOB_SEEKER", "EMPLOYER", "ADMIN") // ✅ Job Seekers & Employers
+                        //.requestMatchers("/api/resumes/**").authenticated()
+                        .requestMatchers("/api/auth/register").permitAll()
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/api/reviews").hasRole("EMPLOYER")
+                        .requestMatchers("/api/reviews").hasRole("EMPLOYER")
+                        .requestMatchers("/api/jobs/**").hasRole("EMPLOYER")
+                        .requestMatchers("/api/applications/{applicationId}/status").hasRole("EMPLOYER")
+                        .requestMatchers(HttpMethod.POST,"/api/applications").hasRole("JOB_SEEKER")
+                        .requestMatchers(HttpMethod.POST,"/api/resumes/upload").hasRole("JOB_SEEKER")
+                        .requestMatchers("/api/applications/job/**").hasAnyRole("EMPLOYER", "ADMIN")
+                        .requestMatchers("/api/applications/user/**").hasAnyRole("EMPLOYER", "ADMIN")
+
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults()); // ✅ Enable Basic Auth
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // ✅ Required for matching hashed passwords
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

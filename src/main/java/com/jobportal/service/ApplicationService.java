@@ -9,6 +9,10 @@ import com.jobportal.model.enums.ApplicationStatus;
 import com.jobportal.repository.ApplicationRepository;
 import com.jobportal.repository.JobRepository;
 import com.jobportal.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,26 +30,22 @@ public class ApplicationService {
         this.userRepository = userRepository;
     }
 
-    public List<ApplicationDto> getApplicationsByJobId(Long jobId) {
-        if (jobId == null) {
-            throw new IllegalArgumentException("Job ID must not be null");
-        }
 
-        return applicationRepository.findByJobId(jobId)
-                .stream()
-                .map(ApplicationMapper.INSTANCE::applicationToApplicationDto)
-                .collect(Collectors.toList());
+    public Page<ApplicationDto> getApplicationsByJobId(Long jobId, int page, int size, String sortBy, String sortDir) {
+        Pageable pageable = PageRequest.of(
+                page, size, sortDir.equalsIgnoreCase("DESC") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending());
+
+        return applicationRepository.findByJobId(jobId, pageable)
+                .map(ApplicationMapper.INSTANCE::applicationToApplicationDto);
     }
 
-    public List<ApplicationDto> getApplicationsByUserId(Long userId) {
-        if (userId == null) {
-            throw new IllegalArgumentException("User ID must not be null");
-        }
 
-        return applicationRepository.findByJobSeekerId(userId)
-                .stream()
-                .map(ApplicationMapper.INSTANCE::applicationToApplicationDto)
-                .collect(Collectors.toList());
+    public Page<ApplicationDto> getApplicationsByUserId(Long userId, int page, int size, String sortBy, String sortDir) {
+        Pageable pageable = PageRequest.of(
+                page, size, sortDir.equalsIgnoreCase("DESC") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending());
+
+        return applicationRepository.findByJobSeekerId(userId, pageable)
+                .map(ApplicationMapper.INSTANCE::applicationToApplicationDto);
     }
 
     public ApplicationDto applyForJob(ApplicationDto applicationDto) {
@@ -67,7 +67,6 @@ public class ApplicationService {
 
         return ApplicationMapper.INSTANCE.applicationToApplicationDto(application);
     }
-
 
     public ApplicationDto updateApplicationStatus(Long applicationId, String status) {
         if (applicationId == null) {

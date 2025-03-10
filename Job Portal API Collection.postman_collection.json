@@ -1,0 +1,694 @@
+{
+	"info": {
+		"_postman_id": "e24e91cd-95d3-424a-823d-456a28c10fdc",
+		"name": "Job Portal API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26379568"
+	},
+	"item": [
+		{
+			"name": "Register a New User",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "adminpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"employerAle\",\n    \"password\": \"password111\",\n    \"role\": \"EMPLOYER\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login (Basic Auth)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "adminpassword",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users (Admin Only)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "adminpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/users?page=0&size=10&sortBy=id&sortDir=ASC&role=ADMIN\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDir",
+							"value": "ASC"
+						},
+						{
+							"key": "role",
+							"value": "ADMIN\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User (Admin Only)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "adminpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/users/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post a Job (Employer)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "employerpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "employer",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"UX UI\",\n    \"description\": \"Designer\",\n    \"location\": \"Remote\",\n    \"employerId\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/jobs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Jobs Posted by Employer",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "employerpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "employer1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/jobs/search?title=Software Engineer&location=Remote&page=0&size=5\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jobs",
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Software Engineer"
+						},
+						{
+							"key": "location",
+							"value": "Remote"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Applications for a Job (Employer/Admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "adminpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/applications/user/2?page=0&size=5&sortBy=id&sortDir=ASC&status=PENDING\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"applications",
+						"user",
+						"2"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDir",
+							"value": "ASC"
+						},
+						{
+							"key": "status",
+							"value": "PENDING\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Application Status (Employer Only)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "employerpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "employer1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"PENDING\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/applications/1/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"applications",
+						"1",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a  Review for a Job(Employer only)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "employer1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "employerpassword",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/reviews\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reviews\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Apply for a Job (Job Seeker Only)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jobseeker1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "jobseekerpassword",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"jobId\": 3,\n    \"status\":\"PENDING\",\n    \"jobSeekerId\":2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/applications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"applications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Resume (Job Seeker Only)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jobseeker1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "jobseekerpassword",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 3,\n    \"fileName\": \"resume_alessia.pdf\",\n    \"fileContent\": \"JVBERi0xLjQKJfbk/N8KMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovVmVyc2lvbiAvMS40Ci9QYWdlcyAyIDAgUgovU3RydWN0VHJlZVJvb3QgMyAwIFIKL01hcmtJbmZvIDQgMCBSCi9MYW5nIChlbi1HQikKL1ZpZXdlclByZWZlcmVuY2VzIDUgMCBSCj4+CmVuZG9iago2IDAgb2JqCjw8Ci9DcmVhdG9yIChDYW52YSkKL1Byb2R1Y2VyIChDYW52YSkKL0NyZWF0aW9uRGF0ZSAoRDoyMDI0MDQyMDE2NDMzNSswMCcwMCcpCi9Nb2REYXRlIChEOjIwMjQwNDIwMTY0MzM1KzAwJzAwJykKL0tleXdvcmRzIChEQUdDOTU5RkEwcyxCQUYtcXZmXzVydykKL0F1dGhvciAoRXNtYSBFc21hKQovVGl0bGUgKEJsYWNrIGFuZCBXaGl0ZSBNaW5pbWFsaXN0aWMgU2ltcGxlIFJlc3VtZSkKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1R5cGUgL1BhZ2VzCi9LaWRzIFs3IDAgUiA4IDAgUl0KL0NvdW50IDIKPj4KZW5kb2JqCjMgMCBvYmoKPDwKL1R5cGUgL1N0cnVjdFRyZWVSb290Ci9LIFs5IDAgUl0KL1BhcmVudFRyZWUgMTAgMCBSCi9QYXJlbnRUcmVlTmV4dEtleSAxMwo+PgplbmRvYmoKNCAwIG9iago8PAovTWFya2VkIHRydWUKL1N1c3BlY3RzIGZhbHNlCj4+CmVuZG9iago1IDAgb2JqCjw8Ci9EaXNwbGF5RG9jVGl0bGUgdHJ1ZQo+PgplbmRvYmoKNyAwIG9iago8PAovVHlwZSAvUGFnZQovUmVzb3VyY2VzIDw8Ci9Qcm9jU2V0IFsvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJXQovRXh0R1N0YXRlIDExIDAgUgovRm9udCAxMiAwIFIKPj4KL01lZGlhQm94IFswLjAgNy44Mjk5ODEzIDU5NS41IDg1MC4wNzk5Nl0KL0NvbnRlbnRzIDEzIDAgUgovU3RydWN0UGFyZW50cyAwCi9QYXJlbnQgMiAwIFIKL1RhYnMgL1MKL0JsZWVkQm94IFswLjAgNy44Mjk5ODEzIDU5NS41IDg1MC4wNzk5Nl0KL1RyaW1Cb3ggWzAuMCA3LjgyOTk4MTMgNTk1LjUgODUwLjA3OTk2XQovQ3JvcEJveCBbMC4wIDcuODI5OTgxMyA1OTUuNSA4NTAuMDc5OTZdCi9Sb3RhdGUgMAovQW5ub3RzIFtdCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9UeXBlIC9QYWdlCi9SZXNvdXJjZXMgPDwKL1Byb2NTZXQgWy9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUldCi9FeHRHU3RhdGUgMTQgMCBSCi9Gb250IDE1IDAgUgo+PgovTWVkaWFCb3ggWzAuMCA3LjgyOTk4MTMgNTk1LjUgODUwLjA3OTk2XQovQ29udGVudHMgMTYgMCBSCi9TdHJ1Y3RQYXJlbnRzIDEKL1BhcmVudCAyIDAgUgovVGFicyAvUwovQmxlZWRCb3ggWzAuMCA3LjgyOTk4MTMgNTk1LjUgODUwLjA3OTk2XQovVHJpbUJveCBbMC4wIDcuODI5OTgxMyA1OTUuNSA4NTAuMDc5OTZdCi9Dcm9wQm94IFswLjAgNy44Mjk5ODEzIDU5NS41IDg1MC4wNzk5Nl0KL1JvdGF0ZSAwCi9Bbm5vdHMgW10KPj4KZW5kb2JqCjkgMCBvYmoKPDwKL1R5cGUgL1N0cnVjdEVsZW0KL1MgL0RvY3VtZW50Ci9QIDMgMCBSCi9LIFsxNyAwIFIgMTggMCBSXQo+PgplbmRvYmoKMTAgMCBvYmoKPDwKL0xpbWl0cyBbMCAxXQovTnVtcyBbMCBbMTkgMCBSIDIwIDAgUiAyMSAwIFIgMjIgMCBSIDIzIDAgUiAyNCAwIFIgMjUgMCBSIDI2IDAgUiAyNyAwIFIgMjggMCBSCjI5IDAgUiAzMCAwIFIgMzEgMCBSIDMyIDAgUiAzMyAwIFIgMzQgMCBSIDM1IDAgUiAzNiAwIFIgMzcgMCBSIDM4IDAgUgozOSAwIFIgNDAgMCBSIDQxIDAgUiA0MiAwIFIgNDMgMCBSIDQ0IDAgUiA0NSAwIFIgNDYgMCBSXQogMSBbNDcgMCBSIDQ4IDAgUiA0OSAwIFIgNTAgMCBSIDUxIDAgUiA1MiAwIFIgNTMgMCBSIDU0IDAgUiA1NSAwIFIgNTYgMCBSCjU3IDAgUiA1OCAwIFIgNTkgMCBSXQpdCj4+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\"\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/resumes/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"resumes",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Applications by Job Seeker(Employer/Admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "adminpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/applications/user/1?page=0&size=10&sortBy=id&sortDir=ASC&jobTitle=Software&status=PENDING\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"applications",
+						"user",
+						"1"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDir",
+							"value": "ASC"
+						},
+						{
+							"key": "jobTitle",
+							"value": "Software"
+						},
+						{
+							"key": "status",
+							"value": "PENDING\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All Jobs",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "employerpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "employer1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/jobs/search?title=Software Engineer&location=Remote&page=0&size=5\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jobs",
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Software Engineer"
+						},
+						{
+							"key": "location",
+							"value": "Remote"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reviews for a Job",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/reviews/job/1?page=0&size=10&sortBy=rating&sortDir=DESC&rating=5\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reviews",
+						"job",
+						"1"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "rating"
+						},
+						{
+							"key": "sortDir",
+							"value": "DESC"
+						},
+						{
+							"key": "rating",
+							"value": "5\n"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

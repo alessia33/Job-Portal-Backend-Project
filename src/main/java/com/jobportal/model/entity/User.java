@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public User() {} // ✅ Default constructor for JPA
+    public User() {}
 
     public User(String username, String password, Role role) {
         this.username = username;
@@ -32,17 +32,17 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    // ✅ Ensure cascade delete for jobs when a user is deleted
+
     @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Job> jobs;
 
-    // ✅ Enable cascade delete for job applications related to the user
+
     @OneToMany(mappedBy = "jobSeeker", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Application> applications;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name())); // ✅ Ensure "ROLE_ADMIN"
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override

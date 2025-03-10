@@ -3,6 +3,8 @@ package com.jobportal.model.dto;
 import jakarta.validation.constraints.*;
 
 public class ResumeDto {
+    private Long id;
+
     @NotNull(message = "User ID is required")
     private Long userId;
 
@@ -10,15 +12,29 @@ public class ResumeDto {
     private String fileName;
 
     @NotBlank(message = "File content cannot be empty")
-    private String fileContent; // Base64 encoded file
+    private String fileContent;
+
 
     public ResumeDto() {}
+
 
     public ResumeDto(Long userId, String fileName, String fileContent) {
         this.userId = userId;
         this.fileName = fileName;
         this.fileContent = fileContent;
     }
+
+
+    public ResumeDto(Long id, Long userId, String fileName, String fileContent) {
+        this.id = id;
+        this.userId = userId;
+        this.fileName = fileName;
+        this.fileContent = fileContent;
+    }
+
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public Long getUserId() { return userId; }
     public void setUserId(Long userId) { this.userId = userId; }

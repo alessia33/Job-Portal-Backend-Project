@@ -6,8 +6,9 @@ import com.jobportal.model.entity.Job;
 import com.jobportal.model.entity.Review;
 import com.jobportal.repository.JobRepository;
 import com.jobportal.repository.ReviewRepository;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -20,11 +21,16 @@ public class ReviewService {
         this.jobRepository = jobRepository;
     }
 
-    public List<ReviewDto> getReviewsForJob(Long jobId) {
-        return reviewRepository.findByJobId(jobId)
-                .stream()
-                .map(ReviewMapper.INSTANCE::reviewToReviewDto)
-                .collect(Collectors.toList());
+
+    public Page<ReviewDto> getReviewsForJob(Long jobId, int page, int size, String sortBy, String sortDir) {
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                sortDir.equalsIgnoreCase("DESC") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending()
+        );
+
+        return reviewRepository.findByJobId(jobId, pageable)
+                .map(review -> ReviewMapper.INSTANCE.reviewToReviewDto(review));
     }
 
     public ReviewDto addReview(ReviewDto reviewDto) {
